@@ -1,9 +1,8 @@
 #pragma once
-
+#include "juce_dsp/juce_dsp.h"
 #include <juce_audio_processors/juce_audio_processors.h>
-
 #if (MSVC)
-#include "ipps.h"
+    #include "ipps.h"
 #endif
 
 class PluginProcessor : public juce::AudioProcessor
@@ -39,5 +38,11 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    /// OSCDEMO ///
+    juce::dsp::Oscillator<float> osc { [] (float x) { return std::sin (x); } };
+    juce::dsp::Oscillator<float> saw { [] (float x) { return x / juce::MathConstants<float>::pi; } };
+    juce::dsp::Oscillator<float> sqr { [] (float x) { return x < 0.0f ? -1.0f : 1.0f; } };
+    juce::dsp::Gain<float> gain;
+    /// OSCDEMO ///
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };
