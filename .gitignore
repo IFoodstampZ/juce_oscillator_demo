@@ -23,6 +23,8 @@ Testing
 # IDE config
 .idea
 
+.cache/
+
 # clion cmake builds
 cmake-build-debug
 cmake-build-release
